@@ -6,14 +6,14 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const { MongoClient } = require("mongodb");
-
+require('dotenv').config();
 
 //settings
 const port = process.env.PORT || 3001;
 app.set('json spaces', 2);
 
 //mongodb connect
-const uri = "mongodb+srv://oa3973392:ki2OLvimC4KNXYZ3@cluster0.7z7le.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+const uri = process.env.MONGODB_URI;
 //const uri = "mongodb+srv://dbUser:dbUser@cluster0.juemb4w.mongodb.net/?retryWrites=true&w=majority";
 //const uri = "mongodb://192.168.6.215:27017";
 //cambiar la ip del local host por que el docker no reconoce el localhost como una ip alcanzable
