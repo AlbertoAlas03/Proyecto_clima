@@ -13,7 +13,7 @@ const port = process.env.PORT || 3001;
 app.set('json spaces', 2);
 
 //mongodb connect
-const uri = "mongodb+srv://admin:dem12345678!@projectdem2024.clc6k.mongodb.net/?retryWrites=true&w=majority&appName=projectDEM2024"
+const uri = "mongodb+srv://oa3973392:ki2OLvimC4KNXYZ3@cluster0.7z7le.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 //const uri = "mongodb+srv://dbUser:dbUser@cluster0.juemb4w.mongodb.net/?retryWrites=true&w=majority";
 //const uri = "mongodb://192.168.6.215:27017";
 //cambiar la ip del local host por que el docker no reconoce el localhost como una ip alcanzable
