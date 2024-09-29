@@ -9,7 +9,7 @@ const { MongoClient } = require("mongodb");
 require('dotenv').config();
 
 //settings
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3002;
 app.set('json spaces', 2);
 
 //mongodb connect
