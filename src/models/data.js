@@ -2,26 +2,50 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const dataSchema = new Schema({
-    temperatura:{
+    temperatura: {
         type: String,
-        required : true
+        required: true
     },
-    humedad_relativa:{
+    humedadRelativa: {
         type: String,
-        required : true
+        required: true
     },
-    CO2:{
+    co2: {
         type: String,
-        required : true
+        required: true
     },
-    pluviometro:{
+    pluviometro: {
         type: String,
-        required : true
+        required: true
     },
-    humedad_suelo:{
+    humedadSuelo: {
         type: String,
-        trim: true,
+        trim: true
     },
-},{ timestamps: true });
+    promTemp: {
+        type: String,
+        trim: true
+    },
+    promPluv: {
+        type: String,
+        trim: true
+    },
+    promHumR: {
+        type: String,
+        trim: true
+    }, 
+    promHumS: {
+        type: String,
+        trim: true
+    },
+    hueco: {
+        type: String,
+        trim: true
+    },
+    espID: {
+        type: String,
+        trim: true
+    }
+}, { timestamps: true });
 
-module.exports = mongoose.model('Data',dataSchema);
+module.exports = mongoose.model('Data', dataSchema);

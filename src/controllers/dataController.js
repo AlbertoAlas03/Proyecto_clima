@@ -1,10 +1,20 @@
 const Data = require('../models/data');
+const moment = require('moment-timezone');
 
 //list all items
 exports.list = async (req, res) => {
     try {
         const data = await Data.find({});
-        res.json(data);
+
+        //conversion de hora a el salvador
+        const adjustedData = data.map(item => {
+            return {
+                ...item.toObject(),
+                createdAt: moment(item.createdAt).tz('America/El_Salvador').format(),
+                updatedAt: moment(item.updatedAt).tz('America/El_Salvador').format()
+            }
+        });
+        res.json(adjustedData);
     } catch (error) {
         console.log(error);
         res.status(200).send(error);
@@ -30,7 +40,15 @@ exports.show = async (req, res, next) => {
 exports.last = async (req, res) => {
     try {
         const data = await Data.find({}).sort({ createdAt: -1 }).limit(1);
-        return res.status(200).json({ data });
+        //conversion de hora a el salvador
+        const adjustedData = data.map(item => {
+            return {
+                ...item.toObject(),
+                createdAt: moment(item.createdAt).tz('America/El_Salvador').format(),
+                updatedAt: moment(item.updatedAt).tz('America/El_Salvador').format()
+            }
+        });
+        return res.status(200).json({ data: adjustedData });
     } catch {
         return res.status(500).send({ message: "Error." });
     }
@@ -39,7 +57,15 @@ exports.last = async (req, res) => {
 exports.top25 = async (req, res) => {
     try {
         const data = await Data.find({}).sort({ createdAt: -1 }).limit(25);
-        return res.status(200).json({ data });
+        //conversion de hora a el salvador
+        const adjustedData = data.map(item => {
+            return {
+                ...item.toObject(),
+                createdAt: moment(item.createdAt).tz('America/El_Salvador').format(),
+                updatedAt: moment(item.updatedAt).tz('America/El_Salvador').format()
+            }
+        });
+        return res.status(200).json({ data: adjustedData });
     } catch {
         return res.status(500).send({ message: "Error." });
     }
@@ -86,14 +112,20 @@ function isDateValid(dateStr) {
 };
 
 exports.add = async (req, res) => {
-    const { temperatura, humedad_relativa, CO2, pluviometro, humedad_suelo } = req.body;
+    const { temperatura, humedadRelativa, co2, pluviometro, humedadSuelo, promTemp, promPluv, promHumR, promHumS, hueco, espID } = req.body;
 
     const data = new Data({
         temperatura: temperatura || 0,
-        humedad_relativa: humedad_relativa || 0,
-        CO2: CO2 || 0,
+        humedadRelativa: humedadRelativa || 0,
+        co2: co2 || 0,
         pluviometro: pluviometro || 0,
-        humedad_suelo: humedad_suelo || 0,
+        humedadSuelo: humedadSuelo || 0,
+        promTemp: promTemp || 0,
+        promPluv: promPluv || 0,
+        promHumR: promHumR || 0,
+        promHumS: promHumS || 0,
+        hueco: hueco || 0,
+        espID: espID || 0
     })
 
     try {
@@ -132,3 +164,25 @@ exports.delete = async (req, res, next) => {
         next();
     }
 };
+
+exports.filter_one = async (req, res) => {
+    try {
+        const data = await Data.find({
+            espID: req.params.espID
+        });
+
+        //conversion de hora a el salvador
+        const adjustedData = data.map(item => {
+            return {
+                ...item.toObject(),
+                createdAt: moment(item.createdAt).tz('America/El_Salvador').format(),
+                updatedAt: moment(item.updatedAt).tz('America/El_Salvador').format()
+            }
+        });
+        res.json(adjustedData);
+    } catch (error) {
+        console.log(error);
+        res.status(200).send(error);
+        next();
+    }
+}

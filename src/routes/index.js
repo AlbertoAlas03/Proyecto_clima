@@ -19,11 +19,13 @@ router.get('/api/list/top25', dataController.top25);
 
 router.post('/api/list/date', dataController.Date_show);
 
-router.post('/api/list', dataController.add);
+router.post('/api/list_add', dataController.add);
 
-router.put('/api/list/:id', dataController.update);
+router.put('/api/list_update/:id', dataController.update);
 
-router.delete('/api/list/:id', dataController.delete);
+router.delete('/api/list_delete/:id', dataController.delete);
+
+router.get('/api/filter_one/:espID', dataController.filter_one)
 
 
 module.exports = router;
